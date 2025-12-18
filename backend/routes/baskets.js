@@ -1,20 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { db } = require('../database');
-
-// Fonction pour calculer le prix d'un produit selon le type de client
-const calculerPrixProduit = (produit, clientType, chiffreAffaires) => {
-  if (clientType === 'particulier') {
-    return produit.prix_particulier;
-  } else {
-    // Client professionnel
-    if (chiffreAffaires > 10000000) {
-      return produit.prix_pro_haut;
-    } else {
-      return produit.prix_pro_bas;
-    }
-  }
-};
+const { calculerPrixProduit } = require('../utils/pricing');
 
 // Calculer le montant total d'un panier
 router.post('/calculer', (req, res) => {
