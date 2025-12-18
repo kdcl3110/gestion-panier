@@ -2,6 +2,16 @@
 
 Application full-stack de gestion de paniers d'achat avec tarification différenciée selon le type de client.
 
+## 📊 Aperçu
+
+| Aspect | Détails |
+|--------|---------|
+| **Stack** | React 18 + Express.js + SQLite |
+| **Tests** | ✅ 103 tests unitaires (99.31% de couverture) |
+| **Backend** | API REST avec routes clients/produits/paniers |
+| **Frontend** | Interface moderne avec Ant Design + Tailwind |
+| **Tarification** | 3 niveaux de prix selon le type de client |
+
 ## Description
 
 Cette application permet de gérer des paniers d'achat pour deux types de clients :
@@ -23,6 +33,55 @@ Cette application permet de gérer des paniers d'achat pour deux types de client
 - **UI Library** : Ant Design 5.11
 - **Styling** : TailwindCSS 3.3
 - **HTTP Client** : Axios 1.6
+
+### Tests
+- **Framework** : Jest 29.7
+- **HTTP Testing** : Supertest 6.3
+- **Couverture** : 99.31% (103 tests unitaires)
+
+## Tests Unitaires
+
+Le backend inclut une suite complète de **103 tests unitaires** avec une couverture de code de **99.31%**.
+
+### Exécuter les Tests
+
+```bash
+cd backend
+
+# Tous les tests
+npm test
+
+# Tests en mode watch
+npm test:watch
+
+# Tests avec rapport de couverture
+npm run test:coverage
+```
+
+### Couverture de Code
+
+```
+----------------|---------|----------|---------|---------|
+File            | % Stmts | % Branch | % Funcs | % Lines |
+----------------|---------|----------|---------|---------|
+All files       |   99.31 |    98.66 |     100 |   99.28 |
+ database.js    |     100 |      100 |     100 |     100 |
+ routes/        |    99.2 |    98.59 |     100 |   99.15 |
+  baskets.js    |    98.3 |    97.05 |     100 |   98.21 |
+  clients.js    |     100 |      100 |     100 |     100 |
+  products.js   |     100 |      100 |     100 |     100 |
+ utils/         |     100 |      100 |     100 |     100 |
+  pricing.js    |     100 |      100 |     100 |     100 |
+----------------|---------|----------|---------|---------|
+```
+
+### Tests Couverts
+
+- **Database** (21 tests) : Initialisation, structure des tables, contraintes, produits par défaut
+- **Pricing** (18 tests) : Calcul des prix selon le type de client et le chiffre d'affaires
+- **Routes Clients** (27 tests) : GET, POST particulier/professionnel, validation, erreurs
+- **Routes Products** (17 tests) : GET all/by ID, validation, cas limites
+- **Routes Baskets** (20 tests) : Calcul, création, récupération, validation
 
 ## Installation
 
@@ -62,12 +121,37 @@ L'application démarre sur `http://localhost:5173` (par défaut avec Vite)
 
 ## Démarrage Rapide
 
-1. Démarrer le backend : `cd backend && npm run dev`
-2. Dans un nouveau terminal, démarrer le frontend : `cd frontend && npm run dev`
-3. Ouvrir `http://localhost:5173` dans votre navigateur
-4. Créer un nouveau client ou sélectionner un client existant
-5. Ajouter des produits au panier
-6. Calculer le montant total
+1. **Installer les dépendances**
+   ```bash
+   cd backend && npm install
+   cd ../frontend && npm install
+   ```
+
+2. **Démarrer le backend**
+   ```bash
+   cd backend
+   npm run dev
+   # Optionnel: peupler la DB avec des données de test
+   npm run seed
+   ```
+
+3. **Démarrer le frontend** (dans un nouveau terminal)
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+
+4. **Utiliser l'application**
+   - Ouvrir `http://localhost:5173` dans votre navigateur
+   - Créer un nouveau client ou sélectionner un client existant
+   - Ajouter des produits au panier
+   - Calculer le montant total
+
+5. **Exécuter les tests** (optionnel)
+   ```bash
+   cd backend
+   npm test
+   ```
 
 ## Produits Disponibles
 
@@ -162,12 +246,27 @@ Test-Technique/
 ├── backend/
 │   ├── database.js          # Configuration SQLite et initialisation des tables
 │   ├── server.js            # Point d'entrée du serveur Express
-│   ├── panier.db           # Base de données SQLite (générée automatiquement)
+│   ├── seed.js              # Script pour peupler la DB avec des données de test
+│   ├── panier.db            # Base de données SQLite (générée automatiquement)
 │   ├── package.json
-│   └── routes/
-│       ├── clients.js       # Routes de gestion des clients
-│       ├── products.js      # Routes de gestion des produits
-│       └── baskets.js       # Routes de gestion des paniers et calculs
+│   ├── jest.config.js       # Configuration Jest
+│   ├── jest.setup.js        # Setup des tests
+│   ├── routes/
+│   │   ├── clients.js       # Routes de gestion des clients
+│   │   ├── products.js      # Routes de gestion des produits
+│   │   └── baskets.js       # Routes de gestion des paniers et calculs
+│   ├── utils/
+│   │   └── pricing.js       # Logique de calcul des prix
+│   ├── test-utils/
+│   │   └── db-mock.js       # Utilitaires pour mocker la DB dans les tests
+│   └── __tests__/
+│       └── unit/
+│           ├── database.test.js
+│           ├── pricing.test.js
+│           └── routes/
+│               ├── clients.test.js
+│               ├── products.test.js
+│               └── baskets.test.js
 │
 └── frontend/
     ├── src/
@@ -265,12 +364,25 @@ Test-Technique/
 ### Proxy Vite
 Le frontend proxy les requêtes `/api` vers `http://localhost:5000` (voir `frontend/vite.config.js:7`).
 
+## Qualité du Code
+
+✅ **103 tests unitaires** passants
+✅ **99.31%** de couverture de code
+✅ **100%** de couverture sur les modules critiques (database, pricing, routes clients/produits)
+✅ Tests des cas nominaux, validations et erreurs
+✅ Mocks de la base de données pour l'isolation des tests
+✅ Architecture modulaire et séparation des responsabilités
+
 ## Scripts Disponibles
 
 ### Backend
 ```bash
-npm start      # Démarre le serveur en mode production
-npm run dev    # Démarre avec nodemon (rechargement auto)
+npm start            # Démarre le serveur en mode production
+npm run dev          # Démarre avec nodemon (rechargement auto)
+npm run seed         # Peuple la DB avec des données de test
+npm test             # Exécute tous les tests unitaires
+npm run test:watch   # Tests en mode watch
+npm run test:coverage # Génère le rapport de couverture
 ```
 
 ### Frontend
