@@ -1,7 +1,7 @@
 import api from "./api";
 
 const calculateBasket = async (basketData) => {
-  return api.post("/paniers/calculer", basketData).then((response) => {
+  return api.post("/baskets/calculer", basketData).then((response) => {
     return response.data;
   });
 };

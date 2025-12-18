@@ -19,9 +19,9 @@ import {
   UserOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import axios from "axios";
 import clientService from './services/client.service'
 import productService from "./services/product.service";
+import basketService from "./services/basket.service";
 import { calc } from "antd/es/theme/internal";
 
 const { Header, Content } = Layout;
@@ -47,7 +47,7 @@ function App() {
   const fetchClients = async () => {
     try {
       const response = await clientService.getClients();
-      setClients(response.data);
+      setClients(response);
     } catch (error) {
       message.error("Erreur lors du chargement des clients");
     }
@@ -56,7 +56,7 @@ function App() {
   const fetchProduits = async () => {
     try {
       const response = await productService.getProducts();
-      setProduits(response.data);
+      setProduits(response);
     } catch (error) {
       message.error("Erreur lors du chargement des produits");
     }
@@ -112,7 +112,7 @@ function App() {
         items: panier,
       };
 
-      const response = await calculateBasket(data);
+      const response = await basketService.calculateBasket(data);
       setTotal(response);
       message.success("Montant calculé avec succès");
     } catch (error) {

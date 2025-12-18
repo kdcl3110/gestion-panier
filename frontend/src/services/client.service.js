@@ -1,7 +1,7 @@
 import api from "./api";
 
 const getClients = async () => {
-   return api.post("/clients").then((response) => {
+   return api.get("/clients").then((response) => {
     return response.data;
   });
 }
