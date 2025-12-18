@@ -117,7 +117,7 @@ npm run dev
 npm run build
 ```
 
-L'application démarre sur `http://localhost:5173` (par défaut avec Vite)
+L'application démarre sur `http://localhost:3000`
 
 ## Démarrage Rapide
 
@@ -363,15 +363,6 @@ Test-Technique/
 
 ### Proxy Vite
 Le frontend proxy les requêtes `/api` vers `http://localhost:5000` (voir `frontend/vite.config.js:7`).
-
-## Qualité du Code
-
-✅ **103 tests unitaires** passants
-✅ **99.31%** de couverture de code
-✅ **100%** de couverture sur les modules critiques (database, pricing, routes clients/produits)
-✅ Tests des cas nominaux, validations et erreurs
-✅ Mocks de la base de données pour l'isolation des tests
-✅ Architecture modulaire et séparation des responsabilités
 
 ## Scripts Disponibles
 
