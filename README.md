@@ -262,23 +262,6 @@ Test-Technique/
    - Responsive design avec Tailwind
    - Feedback utilisateur avec messages de succès/erreur
 
-### Logique Métier
-
-Le calcul des prix est géré dans `backend/routes/baskets.js:6`:
-```javascript
-const calculerPrixProduit = (produit, clientType, chiffreAffaires) => {
-  if (clientType === 'particulier') {
-    return produit.prix_particulier;
-  } else {
-    if (chiffreAffaires > 10000000) {
-      return produit.prix_pro_haut;
-    } else {
-      return produit.prix_pro_bas;
-    }
-  }
-};
-```
-
 ### Proxy Vite
 Le frontend proxy les requêtes `/api` vers `http://localhost:5000` (voir `frontend/vite.config.js:7`).
 
